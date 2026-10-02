@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+.venv/
+.env
+
+# R
+.Rhistory
+.RData
+.Rproj.user/
+
+# Downloaded market data is cached locally, not versioned
+data/
+
+# OS
+.DS_Store
+Thumbs.db
