@@ -19,6 +19,7 @@ import risk
 HERE = Path(__file__).parent
 DATA_FILE = HERE / "data" / "prices.csv"
 FIG_DIR = HERE / "figures"
+RES_DIR = HERE / "results"
 
 TICKERS = {"^BVSP": "Ibovespa", "BRL=X": "USD/BRL"}
 START = "2010-01-01"
@@ -125,6 +126,16 @@ def main() -> None:
 
     print("1-day VaR and ES (as a fraction of position value)")
     print(var_table(returns), "\n")
+
+    print("Five worst days per asset (log return)")
+    for name, r in returns.items():
+        worst = r.nsmallest(5)
+        print(name, "->", ", ".join(f"{d.date()} ({v:+.1%})" for d, v in worst.items()))
+    print()
+
+    RES_DIR.mkdir(exist_ok=True)
+    stats_table(returns).to_csv(RES_DIR / "stats.csv")
+    var_table(returns).to_csv(RES_DIR / "var.csv")
 
     FIG_DIR.mkdir(exist_ok=True)
     for name, r in returns.items():

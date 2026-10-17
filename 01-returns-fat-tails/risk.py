@@ -7,9 +7,8 @@ Conventions used throughout this module:
   A 99% VaR of 0.03 means "we expect to lose more than 3% on 1 day in 100".
 - alpha is the confidence level (0.99), so the tail probability is 1 - alpha.
 
-log_returns is done as an example. The other five functions are yours to
-write: replace each `raise NotImplementedError` with the implementation,
-then run `pytest` until everything passes.
+Everything is implemented from scratch on top of numpy/scipy primitives and
+checked against known answers in test_risk.py.
 """
 
 import numpy as np
@@ -38,9 +37,16 @@ def summary_stats(returns) -> dict:
         skew            skewness (scipy.stats.skew, default settings)
         excess_kurtosis kurtosis minus 3 (scipy.stats.kurtosis, default settings)
     """
-    # Hint: np.asarray(returns, dtype=float), then .mean(), .std(ddof=1),
-    # stats.skew(...) and stats.kurtosis(...).
-    raise NotImplementedError("TODO: implement summary_stats")
+    r = np.asarray(returns, dtype=float)
+    vol = r.std(ddof=1)
+    return {
+        "n": int(r.size),
+        "mean": float(r.mean()),
+        "vol": float(vol),
+        "ann_vol": float(vol * np.sqrt(TRADING_DAYS)),
+        "skew": float(stats.skew(r)),
+        "excess_kurtosis": float(stats.kurtosis(r)),
+    }
 
 
 def jarque_bera(returns) -> tuple:
@@ -54,16 +60,19 @@ def jarque_bera(returns) -> tuple:
 
     Returns (statistic, p_value).
     """
-    # Hint: stats.chi2.sf(x, df=2) gives P(chi2 > x), which is the p-value.
-    raise NotImplementedError("TODO: implement jarque_bera")
+    r = np.asarray(returns, dtype=float)
+    s = stats.skew(r)
+    k = stats.kurtosis(r)
+    jb = r.size / 6 * (s**2 + k**2 / 4)
+    return float(jb), float(stats.chi2.sf(jb, df=2))
 
 
 def historical_var(returns, alpha: float = 0.99) -> float:
     """Historical-simulation VaR: the empirical (1 - alpha) quantile of
     returns, with the sign flipped so the loss is positive.
     """
-    # Hint: np.quantile(r, q). Which q, and what happens to the sign?
-    raise NotImplementedError("TODO: implement historical_var")
+    r = np.asarray(returns, dtype=float)
+    return float(-np.quantile(r, 1 - alpha))
 
 
 def parametric_var(returns, alpha: float = 0.99) -> float:
@@ -73,13 +82,15 @@ def parametric_var(returns, alpha: float = 0.99) -> float:
 
     Use the sample mean and the sample standard deviation (ddof=1).
     """
-    # Hint: stats.norm.ppf(p) is the inverse normal CDF. ppf(0.01) = -2.326.
-    raise NotImplementedError("TODO: implement parametric_var")
+    r = np.asarray(returns, dtype=float)
+    z = stats.norm.ppf(1 - alpha)
+    return float(-(r.mean() + r.std(ddof=1) * z))
 
 
 def historical_es(returns, alpha: float = 0.99) -> float:
     """Historical Expected Shortfall: the average loss on the days when the
     return is at or below the (1 - alpha) quantile. Positive number.
     """
-    # Hint: find the cutoff quantile first, then average the returns at or below it.
-    raise NotImplementedError("TODO: implement historical_es")
+    r = np.asarray(returns, dtype=float)
+    cutoff = np.quantile(r, 1 - alpha)
+    return float(-r[r <= cutoff].mean())

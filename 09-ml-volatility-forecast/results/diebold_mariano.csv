@@ -1,0 +1,6 @@
+model,DM_stat_vs_HAR,p_value,better_than_HAR
+Naive (yesterday),10.686923716343278,3.094040460405447e-26,worse
+EWMA 0.94,1.5110440051169565,0.13087178225265164,no difference
+HAR + extras (Ridge),-1.4687290232945942,0.14200041780595218,no difference
+Random forest,1.3798817167900437,0.16771537211595175,no difference
+Gradient boosting,1.3850278242675267,0.16613640307215,no difference
