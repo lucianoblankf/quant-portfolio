@@ -23,14 +23,15 @@ Shortfall is about 60% larger than the 99% VaR for the Ibovespa.
 | `risk.py` | The risk functions, implemented from scratch (Python) |
 | `test_risk.py` | 17 unit tests with known answers |
 | `analysis.py` | Downloads the data, builds the tables and figures (Python) |
-| `analysis.R` | R mirror: same functions and tables, cross-checks the Python numbers |
+| `r/` | R mirror, organised as an R project (`00_run_all.R`, numbered scripts, `R/` helpers, `tabs/`, `figs/`); cross-checks the Python numbers |
 
 ## How to run
 
 ```bash
 pytest               # all 17 tests pass
 python analysis.py   # prints the tables, saves figures/ and results/
-Rscript analysis.R   # same tables in R (needs quantmod, moments, ggplot2)
+# R mirror: open the r/ folder in your IDE and run r/00_run_all.R
+#   (needs cli, janitor, dplyr, tidyr, purrr, readr, ggplot2, moments, quantmod, knitr)
 ```
 
 ## Method
