@@ -21,16 +21,18 @@ factors rebuild the weekly changes to within 0.7 bp.
 
 ## Files
 
-| File | Purpose |
+| Path | Purpose |
 |------|---------|
-| `analysis.R` | Whole pipeline: data, curve, PCA, scenarios, figures |
-| `data/tesouro_direto.csv` | Tesouro Transparente price/yield history (downloaded on first run, not versioned) |
-| `results/` | Constant-maturity curve and stress scenarios as CSV |
-| `figures/` | `curve_history.png`, `loadings.png`, `scree.png` |
+| `00_run_all.R` | Runs everything in order |
+| `01_get_data.R` | Downloads the raw Tesouro Direto file once, keeps the LTN records |
+| `02_curve.R` | Constant-maturity zero curve |
+| `03_pca.R` | PCA, sub-periods, stress scenarios, reconstruction error; tables to `tabs/` |
+| `04_figures.R` | `curve_history.png`, `loadings.png`, `scree.png` in `figs/` (300 dpi) |
+| `R/curve.R`, `R/pca.R`, `R/plots.R`, `R/tables.R` | Helper functions by topic |
 
-```bash
-Rscript analysis.R    # needs ggplot2, dplyr, tidyr
-```
+Open this folder as the working directory in your IDE and run `00_run_all.R`.
+Needs: cli, janitor, dplyr, tidyr, purrr, readr, ggplot2, scales, knitr. The raw file
+`data/raw/tesouro_direto.csv` is downloaded on first run and not versioned.
 
 ## Data
 
