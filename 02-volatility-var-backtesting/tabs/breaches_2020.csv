@@ -1,0 +1,6 @@
+model,days,breaches
+Historical (250d),248,9
+Normal (250d),248,9
+EWMA 0.94,248,6
+GARCH-normal,248,8
+GARCH-t,248,6

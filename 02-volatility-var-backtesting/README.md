@@ -22,19 +22,22 @@ a risk manager cannot afford.
 
 ## Files
 
-| File | Purpose |
+| Path | Purpose |
 |------|---------|
-| `garch_var.R` | Models, rolling forecasts and backtests, no external GARCH package |
-| `tests.R` | Checks with known answers (parameter recovery on simulated GARCH, tests behave as theory says) |
-| `analysis.R` | Full analysis on the Ibovespa, writes `results/` and `figures/` |
+| `00_run_all.R` | Runs everything in order |
+| `99_tests.R` | Checks with known answers (parameter recovery on simulated GARCH, tests behave as theory says) |
+| `01_get_data.R` | Raw Ibovespa prices (downloaded once) and processed returns |
+| `02_clustering_and_garch.R` | Ljung-Box and full-sample GARCH fits |
+| `03_rolling_var.R` | Rolling out-of-sample VaR forecasts (cached in `data/processed/`) |
+| `04_backtest.R` | Kupiec, Christoffersen, conditional coverage, Basel zone |
+| `05_figures.R` | Figures in `figs/` (300 dpi) |
+| `R/garch.R`, `R/var_models.R`, `R/backtest.R`, `R/plots.R`, `R/tables.R` | Helper functions by topic, no external GARCH package |
+| `tabs/` | Result tables as `.rds`, `.csv` and `.tex` |
 
-```bash
-Rscript tests.R
-Rscript analysis.R
-```
-
-Data: Ibovespa daily closes since 2010 (Yahoo Finance via `quantmod`), cached
-in `data/`. Packages: `ggplot2`, `moments`, `tseries`, `quantmod`.
+Open this folder as the working directory in your IDE and run `00_run_all.R`.
+Data: Ibovespa daily closes since 2010 (Yahoo Finance via `quantmod`), cached in
+`data/raw/`. Packages: cli, janitor, dplyr, tidyr, purrr, readr, ggplot2, scales,
+knitr, quantmod.
 
 ## Results
 

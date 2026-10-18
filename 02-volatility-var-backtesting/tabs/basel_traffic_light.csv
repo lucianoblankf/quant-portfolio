@@ -1,0 +1,6 @@
+model,breaches,zone
+Historical (250d),2,green
+Normal (250d),7,yellow
+EWMA 0.94,3,green
+GARCH-normal,3,green
+GARCH-t,2,green
