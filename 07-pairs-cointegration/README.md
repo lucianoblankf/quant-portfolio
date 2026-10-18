@@ -24,14 +24,18 @@ and the multiple-testing problem is shown rather than hidden.
 
 ## Files
 
-| File | Purpose |
+| Path | Purpose |
 |------|---------|
-| `pairs.R` | Engle-Granger, half-life, the pair backtest and performance statistics |
-| `analysis.R` | Download, pair scan, out-of-sample checks, backtest, figures |
+| `00_run_all.R` | Runs everything in order |
+| `01_get_data.R` | Raw adjusted prices (downloaded once) and processed prices |
+| `02_pair_scan.R` | Formation scan, pair selection, out-of-sample stability |
+| `03_backtest.R` | Trading the selected pairs, performance tables |
+| `04_figures.R` | Figures in `figs/` (300 dpi) |
+| `R/pairs.R`, `R/plots.R`, `R/tables.R` | Engle-Granger, half-life, backtest, plots, table export |
+| `tabs/` | Result tables as `.rds`, `.csv` and `.tex` |
 
-```bash
-Rscript analysis.R    # needs quantmod, tseries, ggplot2, dplyr
-```
+Open this folder as the working directory in your IDE and run `00_run_all.R`.
+Needs: cli, janitor, dplyr, tidyr, purrr, readr, ggplot2, tseries, quantmod, knitr.
 
 ## Design
 
