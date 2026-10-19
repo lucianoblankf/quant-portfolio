@@ -54,18 +54,22 @@ install.packages(c("quantmod", "moments", "tseries", "urca", "sandwich", "lmtest
 
 ## Running a project
 
-```bash
-cd 01-returns-fat-tails
-pytest                # Python projects: unit tests
-python analysis.py
+Python projects (1, 3, 5, 6, 9):
 
-cd ../02-volatility-var-backtesting
-Rscript tests.R       # R projects with tests
-Rscript analysis.R
+```bash
+cd 05-option-pricing
+pytest                # unit tests
+python analysis.py
 ```
 
+R projects (2, 4, 7, 8 and the R version of 1, in `01-returns-fat-tails/r/`) follow one
+layout: numbered scripts in the project root, helper functions in `R/` (one file per
+topic), raw data in `data/raw/`, processed data in `data/processed/`, tables in `tabs/`
+and figures in `figs/`. Open the project folder in your IDE as the working directory
+and run `00_run_all.R`. Project 2 also has `99_tests.R` with checks on known answers.
+
 Test counts: project 1: 17, project 3: 13, project 5: 24, project 6: 15,
-project 9: 8 (pytest); project 2: 8 checks (`tests.R`).
+project 9: 8 (pytest); project 2: 8 checks (`99_tests.R`).
 
 ## How the projects are built
 

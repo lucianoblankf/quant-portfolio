@@ -24,16 +24,19 @@ fall at 24 months is not statistically distinguishable from zero.
 
 ## Files
 
-| File | Purpose |
+| Path | Purpose |
 |------|---------|
-| `var_tools.R` | VAR estimation, lag selection, Granger test, IRF with bootstrap, HP filter |
-| `analysis.R` | Data download (BCB SGS API), all estimation and figures |
-| `results/` | Dataset and result tables as CSV |
-| `figures/` | `selic_vs_ipca.png`, `taylor_fit.png`, `irf_selic_shock.png` |
+| `00_run_all.R` | Runs everything in order |
+| `01_get_data.R` | Downloads the BCB series once, builds the monthly dataset and the output gap |
+| `02_stationarity.R` | ADF and KPSS tests |
+| `03_taylor_rule.R` | Static and dynamic Taylor rule (HAC), Taylor principle, sub-samples, breaks; regression table in `tabs/taylor_rule.tex` and `.html` (texreg) |
+| `04_cointegration_var.R` | Johansen test, VAR, Granger tests, impulse responses |
+| `05_figures.R` | `selic_vs_ipca.png`, `taylor_fit.png`, `irf_selic_shock.png` in `figs/` (300 dpi) |
+| `R/var_tools.R`, `R/taylor.R`, `R/data.R`, `R/plots.R`, `R/tables.R` | Helper functions by topic (VAR written from scratch) |
 
-```bash
-Rscript analysis.R    # needs ggplot2, tseries, sandwich, lmtest, car, strucchange, urca, jsonlite
-```
+Open this folder as the working directory in your IDE and run `00_run_all.R`.
+Needs: cli, janitor, dplyr, tidyr, purrr, readr, ggplot2, tseries, sandwich, lmtest, car,
+strucchange, urca, broom, texreg, jsonlite, knitr.
 
 ## Data
 

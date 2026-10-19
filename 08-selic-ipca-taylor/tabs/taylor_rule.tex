@@ -1,0 +1,26 @@
+
+\begin{table}
+\begin{center}
+\begin{tabular}{l c c}
+\hline
+ & Static & Dynamic \\
+\hline
+(Intercept) & $6.12^{***}$ & $0.00$       \\
+            & $(1.43)$     & $(0.20)$     \\
+ipca12      & $0.91^{***}$ & $0.06^{*}$   \\
+            & $(0.23)$     & $(0.03)$     \\
+gap         & $-0.07$      & $0.08^{***}$ \\
+            & $(0.22)$     & $(0.02)$     \\
+selic\_l1   &              & $0.97^{***}$ \\
+            &              & $(0.01)$     \\
+\hline
+R$^2$       & $0.29$       & $0.99$       \\
+Adj. R$^2$  & $0.29$       & $0.99$       \\
+Num. obs.   & $283$        & $283$        \\
+\hline
+\multicolumn{3}{l}{\scriptsize{HAC (Newey-West, 6 lags) standard errors in parentheses.}}
+\end{tabular}
+\caption{Statistical models}
+\label{table:coefficients}
+\end{center}
+\end{table}
