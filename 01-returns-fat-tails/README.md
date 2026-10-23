@@ -18,21 +18,23 @@ Shortfall is about 60% larger than the 99% VaR for the Ibovespa.
 
 ## Files
 
-| File | Purpose |
+| Path | Purpose |
 |------|---------|
-| `risk.py` | The risk functions, implemented from scratch (Python) |
-| `test_risk.py` | 17 unit tests with known answers |
-| `analysis.py` | Downloads the data, builds the tables and figures (Python) |
+| `00_run_all.py` | Runs the tests, then the three scripts in order |
+| `01_get_data.py` | Downloads the raw prices once, builds `data/processed/returns.parquet` |
+| `02_risk_tables.py` | Statistics, Jarque-Bera, VaR / ES, worst days, saved to `tabs/` |
+| `03_figures.py` | Histograms and QQ plots (plotnine) saved to `figs/` at 300 dpi |
+| `src/risk.py` | The risk functions, implemented from scratch |
+| `src/data.py`, `src/plots.py`, `src/reporting.py` | Data, plots, console (rich) and table export helpers |
+| `tests/test_risk.py` | 17 unit tests with known answers |
 | `r/` | R mirror, organised as an R project (`00_run_all.R`, numbered scripts, `R/` helpers, `tabs/`, `figs/`); cross-checks the Python numbers |
 
 ## How to run
 
-```bash
-pytest               # all 17 tests pass
-python analysis.py   # prints the tables, saves figures/ and results/
-# R mirror: open the r/ folder in your IDE and run r/00_run_all.R
-#   (needs cli, janitor, dplyr, tidyr, purrr, readr, ggplot2, moments, quantmod, knitr)
-```
+Open the project folder in your IDE (working directory = project root) and run
+`00_run_all.py`; or run `pytest` and the numbered scripts one by one.
+Needs: numpy, pandas, scipy, plotnine, pyjanitor, rich, pyarrow, jinja2, yfinance, pytest.
+The R mirror: open `r/` in your IDE and run `r/00_run_all.R`.
 
 ## Method
 
@@ -74,8 +76,8 @@ Worst days. Ibovespa: 2020-03-12 (-16.0%), 2020-03-16 (-15.0%), 2020-03-09
 2012-01-30, 2020-05-11, 2015-09-25, 2018-06-11, 2022-10-04 (all between
 -4.7% and -6.4%).
 
-Figures: `figures/hist_*.png` (histogram vs normal on a log scale) and
-`figures/qq_*.png` (QQ plots).
+Figures: `figs/hist_*.png` (histogram vs normal on a log scale) and
+`figs/qq_*.png` (QQ plots).
 
 ## Answers
 

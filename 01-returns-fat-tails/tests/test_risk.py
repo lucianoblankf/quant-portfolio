@@ -9,7 +9,7 @@ import pandas as pd
 import pytest
 from scipy import stats
 
-import risk
+from src import risk
 
 
 @pytest.fixture
