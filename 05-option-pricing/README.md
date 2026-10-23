@@ -23,16 +23,22 @@ strikes below 95% of spot against 13% above 105%.
 
 ## Files
 
-| File | Purpose |
+| Path | Purpose |
 |------|---------|
-| `options.py` | `bs_price`, `bs_greeks`, `implied_vol`, `mc_price`, `crr_price` |
-| `test_options.py` | 24 tests: textbook values, put-call parity, Greeks against finite differences, IV round trip, MC within error, tree convergence, American vs European |
-| `analysis.py` | The four experiments below, tables in `results/`, figures in `figures/` |
+| `00_run_all.py` | Runs the tests, then the numbered scripts in order |
+| `01_get_data.py` | Downloads the raw SPY option chain once (needs internet; skipped otherwise) |
+| `02_pricing_experiments.py` | Monte Carlo variance reduction and binomial tree convergence |
+| `03_delta_hedging.py` | Hedging error by rebalancing frequency and by hedge volatility |
+| `04_volatility_smile.py` | Implied volatilities of SPY options with our own solver |
+| `05_figures.py` | Figures in `figs/` (plotnine, 300 dpi) |
+| `src/options.py` | `bs_price`, `bs_greeks`, `implied_vol`, `mc_price`, `crr_price` |
+| `src/hedging.py`, `src/data.py`, `src/plots.py`, `src/reporting.py`, `src/config.py` | Hedging simulation, data, plots, console and table export, parameters and seeds |
+| `tests/test_options.py` | 24 tests: textbook values, put-call parity, Greeks against finite differences, IV round trip, MC within error, tree convergence, American vs European |
+| `tabs/` | Result tables as `.csv`, `.tex` and `.html` |
 
-```bash
-pytest
-python analysis.py      # the SPY step needs internet (yfinance); it is skipped otherwise
-```
+Open the project folder in your IDE (working directory = project root) and run
+`00_run_all.py`. Parameters and seeds are in `src/config.py`. Needs: numpy, pandas,
+scipy, plotnine, pyjanitor, rich, pyarrow, jinja2, yfinance, pytest.
 
 ## Results
 
@@ -87,7 +93,7 @@ sides: a 5-point error in volatility roughly doubles the risk of the hedge.
 | Average, strikes above 105% of spot | 13.1% |
 
 The curve slopes down from the lowest strikes, reaches its minimum near 105% of
-spot and rises a little afterwards (`figures/spy_smile.png`). The median
+spot and rises a little afterwards (`figs/spy_smile.png`). The median
 difference between our solver and the implied volatility reported by Yahoo is 0.008
 volatility points (0.8%), probably reflecting our r and q inputs.
 

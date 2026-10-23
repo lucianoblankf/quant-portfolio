@@ -3,7 +3,7 @@
 import numpy as np
 import pytest
 
-import options as o
+from src import options as o
 
 S, K, T, R, SIG = 100.0, 100.0, 1.0, 0.05, 0.20
 
