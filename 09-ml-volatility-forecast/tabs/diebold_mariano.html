@@ -1,0 +1,42 @@
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>model</th>
+      <th>dm_stat_vs_har</th>
+      <th>p_value</th>
+      <th>vs_har</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Naive (yesterday)</td>
+      <td>10.6869</td>
+      <td>0.0000</td>
+      <td>worse</td>
+    </tr>
+    <tr>
+      <td>EWMA 0.94</td>
+      <td>1.5110</td>
+      <td>0.1309</td>
+      <td>no difference</td>
+    </tr>
+    <tr>
+      <td>HAR + extras (Ridge)</td>
+      <td>-1.4687</td>
+      <td>0.1420</td>
+      <td>no difference</td>
+    </tr>
+    <tr>
+      <td>Random forest</td>
+      <td>1.3799</td>
+      <td>0.1677</td>
+      <td>no difference</td>
+    </tr>
+    <tr>
+      <td>Gradient boosting</td>
+      <td>1.3850</td>
+      <td>0.1661</td>
+      <td>no difference</td>
+    </tr>
+  </tbody>
+</table>

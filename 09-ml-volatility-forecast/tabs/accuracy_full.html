@@ -1,0 +1,48 @@
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>model</th>
+      <th>mse_log</th>
+      <th>qlike</th>
+      <th>mz_r2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Naive (yesterday)</td>
+      <td>0.7370</td>
+      <td>0.5788</td>
+      <td>0.2943</td>
+    </tr>
+    <tr>
+      <td>EWMA 0.94</td>
+      <td>0.3082</td>
+      <td>0.1771</td>
+      <td>0.4684</td>
+    </tr>
+    <tr>
+      <td>HAR (OLS)</td>
+      <td>0.2655</td>
+      <td>0.1688</td>
+      <td>0.5024</td>
+    </tr>
+    <tr>
+      <td>HAR + extras (Ridge)</td>
+      <td>0.2528</td>
+      <td>0.1614</td>
+      <td>0.5261</td>
+    </tr>
+    <tr>
+      <td>Random forest</td>
+      <td>0.2927</td>
+      <td>0.2177</td>
+      <td>0.4523</td>
+    </tr>
+    <tr>
+      <td>Gradient boosting</td>
+      <td>0.2985</td>
+      <td>0.2143</td>
+      <td>0.4386</td>
+    </tr>
+  </tbody>
+</table>

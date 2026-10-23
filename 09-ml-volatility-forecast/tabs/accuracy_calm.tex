@@ -1,0 +1,12 @@
+\begin{tabular}{lrrr}
+\toprule
+model & mse_log & qlike & mz_r2 \\
+\midrule
+Naive (yesterday) & 0.7318 & 0.5737 & 0.2243 \\
+EWMA 0.94 & 0.2716 & 0.1472 & 0.4094 \\
+HAR (OLS) & 0.2452 & 0.1413 & 0.4315 \\
+HAR + extras (Ridge) & 0.2365 & 0.1392 & 0.4507 \\
+Random forest & 0.2472 & 0.1436 & 0.4273 \\
+Gradient boosting & 0.2571 & 0.1479 & 0.4079 \\
+\bottomrule
+\end{tabular}

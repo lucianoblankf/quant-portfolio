@@ -5,7 +5,7 @@ import pandas as pd
 import pytest
 from sklearn.linear_model import LinearRegression
 
-import volml as v
+from src import volml as v
 
 
 def fake_ohlc(n=400, seed=0):
@@ -13,8 +13,8 @@ def fake_ohlc(n=400, seed=0):
     close = 100 * np.exp(np.cumsum(rng.normal(0, 0.01, n)))
     spread = np.abs(rng.normal(0.01, 0.003, n))
     idx = pd.bdate_range("2020-01-01", periods=n)
-    return pd.DataFrame({"Open": np.r_[close[0], close[:-1]], "High": close * (1 + spread),
-                         "Low": close * (1 - spread), "Close": close}, index=idx)
+    return pd.DataFrame({"open": np.r_[close[0], close[:-1]], "high": close * (1 + spread),
+                         "low": close * (1 - spread), "close": close}, index=idx)
 
 
 def test_parkinson_variance_known_value():
@@ -46,7 +46,7 @@ def test_target_is_mean_of_next_h_days():
     o = fake_ohlc()
     d = v.make_dataset(o, h=5)
     t = 100
-    rv = v.parkinson_variance(o["High"], o["Low"]).clip(lower=v.EPS)
+    rv = v.parkinson_variance(o["high"], o["low"]).clip(lower=v.EPS)
     expected = np.log(rv.iloc[t + 1: t + 6].mean())
     assert np.isclose(d["y"].loc[o.index[t]], expected)
 

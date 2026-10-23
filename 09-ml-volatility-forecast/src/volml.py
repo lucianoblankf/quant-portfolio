@@ -23,12 +23,12 @@ def parkinson_variance(high: pd.Series, low: pd.Series) -> pd.Series:
 def make_dataset(ohlc: pd.DataFrame, fx_close: pd.Series | None = None, h: int = 5) -> pd.DataFrame:
     """Build features (columns f_*) and the target `y` (log mean variance over t+1..t+h).
 
-    ohlc needs columns Open, High, Low, Close. `fx_close` is an optional second asset
+    ohlc needs columns open, high, low, close. `fx_close` is an optional second asset
     used for a spillover feature.
     """
     d = pd.DataFrame(index=ohlc.index)
-    ret = np.log(ohlc["Close"]).diff()
-    rv = parkinson_variance(ohlc["High"], ohlc["Low"]).clip(lower=EPS)
+    ret = np.log(ohlc["close"]).diff()
+    rv = parkinson_variance(ohlc["high"], ohlc["low"]).clip(lower=EPS)
     d["rv"] = rv
     d["f_logrv_1"] = np.log(rv)
     d["f_logrv_5"] = np.log(rv.rolling(5).mean())
@@ -37,7 +37,7 @@ def make_dataset(ohlc: pd.DataFrame, fx_close: pd.Series | None = None, h: int =
     d["f_absret"] = ret.abs()
     d["f_ret"] = ret
     d["f_neg_ret_5"] = ret.clip(upper=0).rolling(5).sum()          # leverage effect
-    d["f_gap"] = np.log(ohlc["Open"] / ohlc["Close"].shift(1)).abs()
+    d["f_gap"] = np.log(ohlc["open"] / ohlc["close"].shift(1)).abs()
     if fx_close is not None:
         fx_ret = np.log(fx_close).diff().reindex(d.index)
         d["f_fx_absret_5"] = fx_ret.abs().rolling(5).mean()

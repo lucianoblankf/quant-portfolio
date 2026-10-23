@@ -6,3 +6,8 @@ yfinance
 pytest
 scikit-learn
 python-dateutil
+plotnine
+pyjanitor
+rich
+pyarrow
+jinja2

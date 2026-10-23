@@ -54,13 +54,11 @@ install.packages(c("quantmod", "moments", "tseries", "urca", "sandwich", "lmtest
 
 ## Running a project
 
-Python projects (1, 3, 5, 6, 9):
-
-```bash
-cd 05-option-pricing
-pytest                # unit tests
-python analysis.py
-```
+Python projects (1, 3, 5, 6, 9) follow one layout: numbered scripts in the project root,
+helper modules in `src/` (one file per topic), tests in `tests/`, raw data in `data/raw/`,
+processed data in `data/processed/` (parquet), tables in `tabs/` and figures in `figs/`
+(plotnine, 300 dpi). Open the project folder in your IDE as the working directory and run
+`00_run_all.py`, which runs the tests first and then the scripts in order.
 
 R projects (2, 4, 7, 8 and the R version of 1, in `01-returns-fat-tails/r/`) follow one
 layout: numbered scripts in the project root, helper functions in `R/` (one file per

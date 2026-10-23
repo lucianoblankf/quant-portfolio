@@ -26,16 +26,23 @@ what they saw in training. The useful extra information is a leverage feature
 
 ## Files
 
-| File | Purpose |
+| Path | Purpose |
 |------|---------|
-| `volml.py` | Parkinson variance, dataset builder, walk-forward, QLIKE, MZ R2, Diebold-Mariano |
-| `test_volml.py` | 8 tests: estimator unbiased on Brownian paths, no look-ahead in features, walk-forward uses no future targets, loss and DM behave |
-| `analysis.py` | Data, models, tables, figures |
+| `00_run_all.py` | Runs the tests, then the numbered scripts in order |
+| `01_get_data.py` | Raw OHLC prices (downloaded once) and the feature / target dataset |
+| `02_walk_forward.py` | Walk-forward out-of-sample forecasts of all models |
+| `03_evaluation.py` | Accuracy (full, calm, COVID), Diebold-Mariano, HAR coefficients |
+| `04_feature_importance.py` | Permutation importance of the boosting model |
+| `05_figures.py` | Figures in `figs/` (plotnine, 300 dpi) |
+| `src/volml.py` | Parkinson variance, dataset builder, walk-forward, QLIKE, MZ R2, Diebold-Mariano |
+| `src/models.py`, `src/data.py`, `src/plots.py`, `src/reporting.py`, `src/config.py` | Model definitions, data, plots, console and table export, parameters and seed |
+| `tests/test_volml.py` | 8 tests: estimator unbiased on Brownian paths, no look-ahead in features, walk-forward uses no future targets, loss and DM behave |
+| `tabs/` | Result tables as `.csv`, `.tex` and `.html` |
 
-```bash
-pytest
-python analysis.py     # first run downloads ^BVSP and BRL=X from Yahoo Finance
-```
+Open the project folder in your IDE (working directory = project root) and run
+`00_run_all.py`; the first run downloads `^BVSP` and `BRL=X` from Yahoo Finance. Parameters
+and the seed are in `src/config.py`. Needs: numpy, pandas, scipy, scikit-learn, plotnine,
+pyjanitor, rich, pyarrow, jinja2, yfinance, pytest.
 
 ## Data and setup
 
@@ -92,8 +99,8 @@ Permutation importance for boosting (rise in MSE when a feature is shuffled):
 returns 0.010**, absolute return 0.006; the USD/BRL feature, the 66-day average,
 the signed return and the overnight gap are close to zero (0.002 or less).
 
-Figures: `figures/forecast_covid.png`, `figures/accuracy_and_importance.png`,
-`figures/har_scatter.png`.
+Figures: `figs/forecast_covid.png`, `figs/qlike_by_model.png`, `figs/feature_importance.png`,
+`figs/har_scatter.png`.
 
 ## Answers
 
