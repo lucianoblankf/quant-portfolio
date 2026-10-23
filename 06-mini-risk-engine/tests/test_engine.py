@@ -5,7 +5,7 @@ import pandas as pd
 import pytest
 from scipy import stats
 
-import engine as e
+from src import engine as e
 
 
 @pytest.fixture

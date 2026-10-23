@@ -23,16 +23,24 @@ have cost 21.7% of the portfolio.
 
 ## Files
 
-| File | Purpose |
+| Path | Purpose |
 |------|---------|
-| `engine.py` | Portfolio, P&L, VaR/ES methods, component VaR, stress, rolling VaR, Kupiec |
-| `test_engine.py` | 15 tests: exact revaluation, methods agree on normal data, components add to total, homogeneity, diversification, MC tail, stress, Kupiec |
-| `analysis.py` | Downloads the data, builds the portfolio, produces all tables and figures |
+| `00_run_all.py` | Runs the tests, then the numbered scripts in order |
+| `01_get_data.py` | Raw prices and Tesouro Direto file (downloaded once), factor returns |
+| `02_var_es.py` | VaR and ES by four methods, component VaR |
+| `03_stress.py` | Historical and hypothetical stress tests |
+| `04_backtest.py` | Rolling out-of-sample backtest, Kupiec, Basel traffic light |
+| `05_figures.py` | Figures in `figs/` (plotnine, 300 dpi) |
+| `src/engine.py` | Portfolio, P&L, VaR/ES methods, component VaR, stress, rolling VaR, Kupiec |
+| `src/data.py`, `src/plots.py`, `src/reporting.py`, `src/config.py` | Data, plots, console and table export, positions and parameters |
+| `tests/test_engine.py` | 15 tests: exact revaluation, methods agree on normal data, components add to total, homogeneity, diversification, MC tail, stress, Kupiec |
+| `tabs/` | Result tables as `.csv`, `.tex` and `.html` |
 
-```bash
-pytest
-python analysis.py     # needs internet the first time (yfinance + Tesouro Transparente), then uses data/
-```
+Open the project folder in your IDE (working directory = project root) and run
+`00_run_all.py`. Positions, window sizes and seeds are in `src/config.py`. Needs internet the
+first time (yfinance and Tesouro Transparente), then uses `data/`. Needs: numpy, pandas, scipy,
+plotnine, pyjanitor, rich, pyarrow, jinja2, yfinance, pytest. Factor names in the tables are
+lowercase (`petr4`, `vale3`, `itub4`, `wege3`, `usdbrl`, `rate`).
 
 ## Portfolio and data
 
@@ -108,7 +116,7 @@ None is rejected at 5%, but EWMA comes closest (33 breaches against 23.6
 expected, p = 0.07): reacting quickly to volatility did not pay here, and the
 two slower models were better calibrated on this portfolio.
 
-Figures: `figures/pnl_distribution.png`, `component_var.png`, `backtest.png`,
+Figures: `figs/pnl_distribution.png`, `component_var.png`, `backtest.png`,
 `stress.png`.
 
 ## Answers
