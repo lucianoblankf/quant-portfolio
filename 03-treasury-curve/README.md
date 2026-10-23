@@ -26,16 +26,22 @@ curve, not the swap (DI) curve, and its quotes are a morning snapshot.
 
 ## Files
 
-| File | Purpose |
+| Path | Purpose |
 |------|---------|
-| `curve.py` | Calendar, cash flows, `Curve`, `bootstrap`, `price`, `dv01`, `key_rate_dv01` |
-| `test_curve.py` | 13 tests: calendar, flat-forward algebra, bootstrap round-trip, KRD sums to DV01 |
-| `analysis.py` | Downloads the data, bootstraps, reprices, computes risk and figures |
+| `00_run_all.py` | Runs the tests, then the numbered scripts in order |
+| `01_get_data.py` | Downloads the raw Tesouro Direto file once, keeps LTN and NTN-F quotes (`data/processed/bonds.parquet`) |
+| `02_bootstrap.py` | Bootstraps the curve, reprices the inputs, LTN vs NTN-F basis |
+| `03_risk.py` | Duration, DV01, key-rate DV01 |
+| `04_figures.py` | Figures in `figs/` (plotnine, 300 dpi) |
+| `src/curve.py` | Calendar, cash flows, `Curve`, `bootstrap`, `price`, `dv01`, `key_rate_dv01` |
+| `src/data.py`, `src/plots.py`, `src/reporting.py`, `src/config.py` | Data, plots, console and table export, parameters |
+| `tests/test_curve.py` | 13 tests: calendar, flat-forward algebra, bootstrap round-trip, key rates sum to DV01 |
+| `tabs/` | Result tables as `.csv`, `.tex` and `.html` |
 
-```bash
-pytest
-python analysis.py [YYYY-MM-DD]     # default: latest date in the file
-```
+Open the project folder in your IDE (working directory = project root) and run
+`00_run_all.py`. To use another quote date, set `QUOTE_DATE` in `src/config.py`
+(default: latest date in the file). Needs: numpy, pandas, scipy, python-dateutil,
+plotnine, pyjanitor, rich, pyarrow, jinja2, pytest.
 
 ## Method
 
@@ -96,8 +102,8 @@ Key-rate DV01 shows where the risk sits: the LTNs concentrate it all in one pill
 the NTN-F 2037 has 62% of its DV01 at its own maturity (0.297 of 0.475), with the
 rest spread over the earlier pillars through its coupons.
 
-Figures: `figures/zero_forward_curve.png`, `figures/curve_snapshots.png` (2024,
-2025 and 2026), `figures/key_rate_dv01.png`.
+Figures: `figs/zero_forward_curve.png`, `figs/curve_snapshots.png` (2024,
+2025 and 2026), `figs/key_rate_dv01.png`.
 
 ## Answers
 

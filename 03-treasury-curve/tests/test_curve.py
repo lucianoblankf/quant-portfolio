@@ -5,7 +5,7 @@ from datetime import date
 import numpy as np
 import pytest
 
-import curve as c
+from src import curve as c
 
 VAL = date(2026, 10, 16)
 
